@@ -1,0 +1,36 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h4>Send Echo Request</h4>
+<div class="p-4">
+    <input type="text" id="theTextBox" class="form-control" placeholder="Type a message" />
+    <button class="btn btn-primary" click="echo" id="theButton">Send Request</button>
+</div>
+
+<h4>Response Message</h4>
+<div id="responseMessage" class="text-center p-4 bg-light" style="display:none">
+
+</div>
+
+@section Scripts{
+<script>
+    (function () {
+        var txt = document.getElementById("theTextBox");
+        var btn = document.getElementById("theButton");
+        var msg = document.getElementById("responseMessage");
+        btn.addEventListener("click", function () {
+            window.sendEchoRequest(txt.value).then(function (response) {
+                msg.innerText = response;
+                msg.style.display = "";
+            }, function (xhr) {
+                console.error(xhr.responseText);
+                alert("Somethign broke");
+            })
+        });
+    })();    
+</script>
+}
+
